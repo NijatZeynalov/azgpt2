@@ -1,3 +1,5 @@
+# https://drive.google.com/file/d/1ZDVm2i-uuqo12C9WsR2i7rTCHiA5C8MJ/view?usp=share_link
+
 df = pd.read_csv('lent_az_urls.csv')
 
 def news_to_txt(url_list):

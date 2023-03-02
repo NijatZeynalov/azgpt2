@@ -11,7 +11,7 @@ def news_to_txt(url_list):
         reqs = requests.get(base_url)
         soup = BeautifulSoup(reqs.text, 'html.parser')
         mydivs = soup.find("div", {"class": "news_content"})
-
+        if mydivs is not None:
         with open(f'{file_name}.txt', 'w') as f:
             f.write(mydivs.text)
             

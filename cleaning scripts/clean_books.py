@@ -1,10 +1,10 @@
-#kishiyev, 21.03
+#kishiyev, 21.03 (updated)
+import os
 import re
 
 class TextCleaner:
-    def __init__(self, input_file_path, output_file_path):
+    def __init__(self, input_file_path):
         self.input_file_path = input_file_path
-        self.output_file_path = output_file_path
 
     def clean_text(self):
         with open(self.input_file_path, 'r') as file:
@@ -24,20 +24,24 @@ class TextCleaner:
         text = re.sub(r'www\S+', '', text)
 
         #Non-Azerbaijani Words
+        #text = re.sub(r'\b(?!(?:[a-zA-Z]|ç|ə|ı|i|ö|ü)+\b)\w+\b', '', text)
         text = re.sub(r'\b(?![a-zA-ZşçəğıİöüÖÜ]+)\w+\b', '', text)
         
         self.cleaned_text = text
     
     def save_text(self):
-        with open(self.output_file_path, 'w') as file:
+        output_file_path = os.path.splitext(self.input_file_path)[0] + '_cleaned.txt'
+        with open(output_file_path, 'w') as file:
             file.write(self.cleaned_text)
 
-        print(f"Cleaned text at {self.output_file_path}")
+        print(f"Cleaned text at {output_file_path}")
     
 if __name__ == '__main__':
-    input_file = 'Balet_librettolari_XIX_esr-XX_esrin_evveli.txt'
-    output_file = 'output.txt'
+    input_folder = '/content/my_data' #any file directory we provide
 
-    clean = TextCleaner(input_file, output_file)
-    clean.clean_text()
-    clean.save_text()
+    for file_name in os.listdir(input_folder):
+        if file_name.endswith('.txt'):
+            input_file_path = os.path.join(input_folder, file_name)
+            clean = TextCleaner(input_file_path)
+            clean.clean_text()
+            clean.save_text()

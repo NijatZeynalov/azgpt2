@@ -24,8 +24,10 @@ class TextCleaner:
         text = re.sub(r'www\S+', '', text)
 
         #Non-Azerbaijani Words
-        #text = re.sub(r'\b(?!(?:[a-zA-Z]|ç|ə|ı|i|ö|ü)+\b)\w+\b', '', text)
         text = re.sub(r'\b(?![a-zA-ZşçəğıİöüÖÜ]+)\w+\b', '', text)
+        
+        #"w"
+        #text = re.sub(r'\b\w*w\w*\b', '', text) 
         
         self.cleaned_text = text
     

@@ -59,7 +59,6 @@ for file_name in os.listdir(folder_path):
             # write the cleaned text back to the file
             if "." in cleaned_text:
                 with open(os.path.join(output_folder_path, file_name), "w") as f:
-                    print(cleaned_text)
                     f.write(cleaned_text)
         else:
             # if the file does not match any of the conditions, skip it

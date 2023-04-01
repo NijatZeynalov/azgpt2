@@ -1,0 +1,48 @@
+
+#
+def split_into_sentences(text):
+    # replace newlines with spaces
+    text = text.replace("\n", " ")
+    text = text.replace("\xad","")
+    text = re.sub(r'^[^\w\n]+|[^\w\n]+$', '', text, flags=re.MULTILINE)
+
+    # star
+    # replace newlines with spaces
+    text = text.replace("\n", " ")
+    text = text.replace("\xad","")
+    text = re.sub(r'^[^\w\n]+|[^\w\n]+$', '', text, flags=re.MULTILINE)
+
+    # star
+
+    text = text.replace('- ','')
+    text = re.sub(r'http\S+', '', text)
+    text = re.sub(r'www\S+', '', text)
+    text = text.replace('°','ş')
+    text = re.sub(r"\d+\w+", lambda match: match.group()[len(match.group(0)) - 1:], text)
+
+    #end
+    # split text into sentences based on punctuation marks
+    sentences = re.split(r"(?<=[.?!])\s+", text)
+    return sentences
+
+
+for txt_file in txt_files:
+
+    try:
+        with open(txt_file, "r", encoding="utf-8") as file:
+            contents = file.read()
+
+        sentences = split_into_sentences(contents)
+
+        sentence_groups = [sentences[i:i+10] for i in range(0, len(sentences), 10)]
+
+        sentence_groups = sentence_groups[10:]
+        sentence_groups = sentence_groups[:-10]
+        print(len(sentence_groups))
+
+        for i in sentence_groups:
+            name = str(uuid.uuid4())
+            with open(f"data_kitabyurdu/{name}.txt", "w") as f:
+                f.write(" ".join(i))
+    except:
+        pass
